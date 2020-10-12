@@ -32,7 +32,7 @@
     "yargs": "^15.0.0"
   },
   "devDependencies": {
-    "@friends-library/dev": "^4.1.10",
+    "@friends-library/dev": "^4.1.11",
     "@types/nodegit": "^0.24.13",
     "@types/yargs": "^15.0.0"
   }

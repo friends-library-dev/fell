@@ -1,3 +1,4 @@
+// @ts-nocheck
 import '@friends-library/env/load';
 import yargs from 'yargs';
 import * as branch from './cmd/branch';
@@ -10,19 +11,16 @@ import * as sync from './cmd/sync';
 import * as clone from './cmd/clone';
 import * as workflows from './cmd/workflows';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-expressions
+// eslint-disable-next-line
 yargs
   .scriptName(`fell`)
   .command(branch)
   .command(status)
   .command(checkout)
   .command(commit)
-  // @ts-ignore
   .command(push)
   .command(sync)
-  // @ts-ignore
   .command(clone)
-  // @ts-ignore
   .command(dlete)
   .command(workflows)
   .help().argv;
