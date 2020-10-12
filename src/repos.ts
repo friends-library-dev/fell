@@ -6,7 +6,7 @@ import * as git from './git';
 
 export async function getRepos(exclude: string[], branch?: string): Promise<string[]> {
   const { DOCS_REPOS_ROOT: ROOT } = env.require(`DOCS_REPOS_ROOT`);
-  const repos = glob(`${ROOT.replace(/\/$/, ``)}/{en,es}/*`);
+  const repos = glob(`${ROOT}/{en,es}/*`);
   const notExcluded = repos.filter((repo) => {
     return exclude.reduce((bool, str) => {
       return bool === false ? false : repo.indexOf(str) === -1;
