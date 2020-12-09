@@ -22,18 +22,18 @@
   },
   "dependencies": {
     "@friends-library/env": "^1.2.0",
-    "@friends-library/friend-repos": "^1.0.0",
+    "@friends-library/friend-repos": "^1.1.0",
     "@octokit/rest": "^16.15.0",
     "chalk": "^2.4.1",
     "glob": "^7.1.4",
-    "nodegit": "^0.26.1",
+    "nodegit": "^0.27.0",
     "x-chalk": "^1.0.1",
     "x-ts-utils": "^1.0.1",
     "yargs": "^15.0.0"
   },
   "devDependencies": {
-    "@friends-library/dev": "^4.1.11",
-    "@types/nodegit": "^0.24.13",
+    "@friends-library/dev": "^4.1.13",
+    "@types/nodegit": "^0.26.12",
     "@types/yargs": "^15.0.0"
   }
 }
