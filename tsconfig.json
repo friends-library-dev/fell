@@ -3,6 +3,8 @@
     "rootDir": "./src",
     "outDir": "./dist",
     "esModuleInterop": true,
+    "noImplicitOverride": true,
+    "noUncheckedIndexedAccess": true,
     "downlevelIteration": true,
     "skipLibCheck": true,
     "strict": true

@@ -22,7 +22,7 @@ export async function getRepos(exclude: string[], branch?: string): Promise<stri
   );
 
   return branches
-    .map((repoBranch, idx) => (repoBranch === branch ? notExcluded[idx] : false))
+    .map((repoBranch, idx) => (repoBranch === branch ? notExcluded[idx] ?? false : false))
     .filter(isNotFalse);
 }
 
