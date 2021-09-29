@@ -25,6 +25,7 @@ export async function handler({
   prBody,
   delay,
 }: Argv): Promise<void> {
+  let exitStatus = 0;
   let repos = await getRepos(exclude, branch);
   if (branch !== `master`) {
     const ahead = await Promise.all(repos.map((repo) => git.isAheadOfMaster(repo)));
@@ -45,10 +46,13 @@ export async function handler({
       green(`PR#${num} opened for repo: ${repo}`);
     } else {
       red(`PR creation failed for repo: ${repo}`);
+      exitStatus++;
     }
     // force delay between PR creations
     await new Promise((resolve) => setTimeout(resolve, delay * 1000));
   }
+
+  process.exit(exitStatus);
 }
 
 export const command = `push <branch>`;

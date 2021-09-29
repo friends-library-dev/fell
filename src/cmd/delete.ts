@@ -15,7 +15,7 @@ export async function handler({ exclude, branch, scope }: Argv): Promise<void> {
     const currentBranch = await git.getCurrentBranch(repo);
     if (currentBranch === branch) {
       red(`Can't delete ${branch} from repo ${repo}, it is checked out.`);
-      return;
+      process.exit(1);
     }
 
     const hasBranch = await git.hasBranch(repo, branch);
@@ -26,6 +26,7 @@ export async function handler({ exclude, branch, scope }: Argv): Promise<void> {
     const success = await git.deleteBranch(repo, branch);
     if (!success) {
       red(`Error deleting branch ${branch} from repo: ${repo}`);
+      process.exit(1);
     }
   });
 }

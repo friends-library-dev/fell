@@ -1,4 +1,4 @@
-import { green } from 'x-chalk';
+import { green, log, c } from 'x-chalk';
 import { Options } from 'yargs';
 import { Argv as BaseArgv } from '../type';
 import { getRepos, getStatusGroups } from '../repos';
@@ -22,7 +22,8 @@ export async function handler({
 
   if (!createBranch) {
     if (!exists.every(Boolean)) {
-      throw new Error(`Can't checkout ${branch}, doesn't exist on every repo.`);
+      log(c`{red.bold Can't checkout ${branch}, doesn't exist on every repo.}`);
+      process.exit(1);
     }
 
     await Promise.all(clean.map((repo) => git.checkoutBranch(repo, branch)));
@@ -31,7 +32,8 @@ export async function handler({
   }
 
   if (exists.some(Boolean)) {
-    throw new Error(`Can't create ${branch}, exists on at least one repo.`);
+    log(c`{red.bold Can't create ${branch}, exists on at least one repo.}`);
+    process.exit(1);
   }
 
   await Promise.all(clean.map((repo) => git.checkoutNewBranch(repo, branch)));

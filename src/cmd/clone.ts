@@ -8,7 +8,11 @@ interface Argv {
 
 export async function handler({ deleteExisting }: Argv): Promise<void> {
   const { DOCS_REPOS_ROOT } = env.require(`DOCS_REPOS_ROOT`);
-  friendRepos.cloneAll(DOCS_REPOS_ROOT, deleteExisting);
+  try {
+    await friendRepos.cloneAll(DOCS_REPOS_ROOT, deleteExisting);
+  } catch {
+    process.exit(1);
+  }
 }
 
 export const command = `clone`;

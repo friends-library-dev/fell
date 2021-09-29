@@ -7,6 +7,7 @@ import { getRepos, getStatusGroups } from '../repos';
 import { excludable, scopeable, relPath } from './helpers';
 
 export async function handler({ exclude, scope, diff }: Argv): Promise<void> {
+  let exitStatus = 0;
   const repos = await getRepos(exclude, scope);
   const { dirty } = await getStatusGroups(repos);
   if (dirty.length === 0) {
@@ -16,9 +17,12 @@ export async function handler({ exclude, scope, diff }: Argv): Promise<void> {
 
   red(`🚽  Uncommitted changes found in ${dirty.length} repos:`);
   dirty.forEach((repo) => {
+    exitStatus++;
     console.log(`   ${chalk.grey(`↳`)} ${chalk.yellow(relPath(repo))}`);
     diff && exec.out(`git diff`, repo);
   });
+
+  process.exit(exitStatus);
 }
 
 export const command = [`status`, `s`];
