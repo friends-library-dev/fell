@@ -105,17 +105,6 @@ export async function push(
   }
 }
 
-const remoteCallbacks = {
-  callbacks: {
-    certificateCheck() {
-      return 0;
-    },
-    credentials(url: string, userName: string) {
-      return NodeGit.Cred.sshKeyFromAgent(userName);
-    },
-  },
-};
-
 export async function isAheadOfMaster(repoPath: Repo): Promise<boolean> {
   const repo = await getRepo(repoPath);
   const headCommit = await repo.getHeadCommit();
@@ -164,3 +153,18 @@ async function getRepo(repoPath: Repo): Promise<NodeGit.Repository> {
     throw error;
   }
 }
+
+// ssh key must be a modern format like `ed25519`, not `rsa-1`
+const KEY_PATH = env.requireVar(`FELL_GITHUB_SSH_KEY_PATH`);
+const CRED = NodeGit.Cred.sshKeyNew(`git`, `${KEY_PATH}.pub`, `${KEY_PATH}`, ``);
+
+const remoteCallbacks = {
+  callbacks: {
+    certificateCheck() {
+      return 0;
+    },
+    credentials() {
+      return CRED;
+    },
+  },
+};
